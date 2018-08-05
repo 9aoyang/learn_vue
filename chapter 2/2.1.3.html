@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+</head>
+
+<body>
+  <div id="app">
+    {{ book }}
+  </div>
+  <div id="app1">
+    {{ date }}
+  </div>
+  <div id="app2">
+    <span v-html="link"></span>
+  </div>
+  <div id="app3">
+    <span v-pre>{{ 这里的内容是不会被编译的 }}</span>
+    <span>{{ number / 10 }}</span>
+    <span>{{ isOK ? '确定' : '取消' }}</span>
+    <span>{{ text.split(',').reverse().join(',') }}</span>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        book: '《Vue.js 实战》'
+      }
+    })
+    var app1 = new Vue({
+      el: '#app1',
+      data: {
+        date: new Date()
+      },
+      mounted() {
+        var _this = this;
+        this.timer = setInterval(() => {
+          _this.date = new Date()
+        }, 1000)
+      },
+      beforeDestroy() {
+        if (this.timer) {
+          clearInterval(this.timer)
+        }
+      },
+    })
+    var app2 = new Vue({
+      el: '#app2',
+      data: {
+        link: '<a href="#">这是一个链接</a>'
+      }
+    })
+    var app3 = new Vue({
+      el: '#app3',
+      data: {
+        number: 100,
+        isOK: false,
+        text: '123,456'
+      }
+    })
+  </script>
+</body>
+
+</html>
