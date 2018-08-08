@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+</head>
+
+<body>
+  <div id="app1">
+    <table>
+      <tbody is="table-component"></tbody>
+    </table>
+  </div>
+  <div id="app2">
+    <my-component></my-component>
+    <my-component></my-component>
+    <my-component></my-component>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+  Vue.component('table-component', {
+    template: '<div>这里是组件的内容</div>'
+  })
+  var app1 = new Vue({
+    el: '#app1'
+  })
+  Vue.component('my-component', {
+    template: '<button @click="counter++">{{ counter }}</button>',
+    data() {
+      return {
+        counter: 0
+      }
+    }
+  })
+  var app2 = new Vue({
+    el: '#app2',
+  })
+</script>
+</html>
