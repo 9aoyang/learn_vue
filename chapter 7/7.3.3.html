@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+</head>
+
+<body>
+  <div id="app1">
+    {{ message}}
+    <component-a></component-a>
+  </div>
+  <div id="app2">
+    <p ref="p">内容</p>
+    <child-component ref="child"></child-component>
+    <button @click="handleRef">自动判断标签/组件</button>
+  </div>
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+  var bus = new Vue()
+
+  Vue.component('component-a', {
+    template: `<button @click="handleEvent">传递事件</button>`,
+    methods: {
+      handleEvent() {
+        bus.$emit('on-message', '来自组件component-a的内容')
+      }
+    }
+  })
+
+  var app1 = new Vue({
+    el: '#app1',
+    data: {
+      message: ''
+    },
+    mounted() {
+      var _this = this
+      bus.$on('on-message', (msg) => {
+        _this.message = msg
+      })
+    },
+  })
+
+  Vue.component('child-component', {
+    template: '<div>子组件</div>',
+    data() {
+      return {
+        message: '子组件内容'
+      }
+    }
+  })
+
+  var app2 = new Vue({
+    el: '#app2',
+    methods: {
+      handleRef() {
+        console.log(this.$refs.p)
+        console.log(this.$refs.child)
+      }
+    }
+  })
+</script>
+
+</html>
