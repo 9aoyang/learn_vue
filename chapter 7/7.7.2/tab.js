@@ -19,7 +19,7 @@ Vue.component('tabs', {
       type: [String, Number]
     }
   },
-  data: () => {
+  data: function () {
     return {
       currentValue: this.value,
       navList: []
@@ -43,7 +43,7 @@ Vue.component('tabs', {
       this.navList = []
       _this = this
 
-      this.getTabs().forEach((pane, index) => {
+      this.getTabs().forEach(function (pane, index) {
         _this.navList.push({
           label: pane.label,
           name: pane.name || index
@@ -60,15 +60,15 @@ Vue.component('tabs', {
       this.updateStatus()
     },
     updateStatus() {
-      let tabs = this.getTabs()
-      let _this = this
-      tabs.forEach(tab => {
+      var tabs = this.getTabs()
+      var _this = this
+      tabs.forEach(function (tab) {
         return tab.show = tab.name === _this.currentValue
       });
     },
-    handleChange(index) {
-      let nav = this.navList[index]
-      let name = nav.name
+    handleChange: function (index) {
+      var nav = this.navList[index]
+      var name = nav.name
       this.currentValue = name
 
       this.$emit('input', name)

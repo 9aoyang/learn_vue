@@ -14,7 +14,7 @@ Vue.component('pane', {
       default: ''
     }
   },
-  data: () => {
+  data: function () {
     return {
       show: true
     }
